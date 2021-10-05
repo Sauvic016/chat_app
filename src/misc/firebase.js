@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 
 const config = {
   apiKey: 'AIzaSyCVSYlS_Gqr_W4H6Mel2HzWb8GgRvFphq4',
@@ -11,3 +13,6 @@ const config = {
 };
 
 const app = firebase.initializeApp(config);
+
+export const auth = app.auth();
+export const database = app.database();
