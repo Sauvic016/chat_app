@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Button, Divider, Drawer } from 'rsuite';
+import { Alert, Button, Divider, Drawer } from 'rsuite';
 import { useProfile } from '../../context/profile.context';
+import { database } from '../../misc/firebase';
 import EditableInput from '../EditableInput';
 
 const Dashboard = ({ onSignOut }) => {
@@ -9,7 +10,16 @@ const Dashboard = ({ onSignOut }) => {
 
   // eslint-disable-next-line no-unused-vars
   const onSave = async newData => {
-    console.log(newData);
+    const userNicknameRef = database
+      .ref(`/profiles/${profile.uid}`)
+      .child(`name`);
+
+    try {
+      await userNicknameRef.set(newData);
+      Alert.success('Nickname has been updated ', 4000);
+    } catch (err) {
+      Alert.error(err.message, 4000);
+    }
   };
   return (
     <>
